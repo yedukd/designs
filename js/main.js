@@ -116,12 +116,6 @@ function renderProducts(products, filterCategory = 'all') {
         grid.classList.remove('fade-out');
         grid.classList.add('fade-in');
         
-        // Scroll to products section smoothly
-        document.querySelector('.products-section').scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'nearest' 
-        });
-        
     }, 300); // Match this with CSS transition duration
 }
 
