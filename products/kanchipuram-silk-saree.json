@@ -1,0 +1,14 @@
+{
+    "title": "Kanchipuram Silk Saree",
+    "description": "Traditional handwoven silk saree with gold zari border",
+    "price": 12999,
+    "rating": 4.9,
+    "reviews": 156,
+    "images": [
+        "assets/products/kanchipuram-silk-saree/dummy.jpg",
+        "assets/products/kanchipuram-silk-saree/dummy.jpg",
+        "assets/products/kanchipuram-silk-saree/dummy.jpg",
+        "assets/products/kanchipuram-silk-saree/dummy.jpg"
+    ],
+    "category": "Kanjeevaram"
+}

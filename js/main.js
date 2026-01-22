@@ -1,90 +1,26 @@
-// Product data
-const products = [
-    {
-        title: 'Personalized Photo Frame',
-        description: 'Beautiful wooden frame with custom engraving',
-        rating: 4.8,
-        reviews: 127,
-        image: 'assets/photo-frame.jpg'
-    },
-    {
-        title: 'Luxury Jewelry Box',
-        description: 'Elegant velvet-lined jewelry organizer',
-        rating: 4.9,
-        reviews: 89,
-        image: 'assets/jewelry-box.jpg'
-    },
-    {
-        title: 'Scented Candle Set',
-        description: 'Set of 3 premium aromatherapy candles',
-        rating: 4.7,
-        reviews: 203,
-        image: null
-    },
-    {
-        title: 'Birthday Crown',
-        description: 'Sparkly birthday crown for special celebrations',
-        rating: 4.5,
-        reviews: 156,
-        image: 'assets/birthday-crown.jpg'
-    },
-    {
-        title: 'Leather Journal',
-        description: 'Handcrafted leather-bound notebook',
-        rating: 4.9,
-        reviews: 94,
-        image: 'assets/leather-journal.jpg'
-    },
-    {
-        title: 'Tea Gift Set',
-        description: 'Assorted premium tea collection',
-        rating: 4.6,
-        reviews: 178,
-        image: 'assets/tea-set.jpg'
-    },
-    {
-        title: 'Personalized Mug',
-        description: 'Custom ceramic mug with name',
-        rating: 4.7,
-        reviews: 245,
-        image: 'assets/personalized-mug.jpg'
-    },
-    {
-        title: 'Succulent Plant Set',
-        description: 'Set of 4 mini succulent plants',
-        rating: 4.8,
-        reviews: 167,
-        image: 'assets/succulent-plants.jpg'
-    },
-    {
-        title: 'Wine Accessory Kit',
-        description: 'Complete wine opener and stopper set',
-        rating: 4.6,
-        reviews: 132,
-        image: 'assets/wine-kit.jpg'
-    },
-    {
-        title: 'Chocolate Gift Box',
-        description: 'Assorted gourmet chocolates',
-        rating: 4.9,
-        reviews: 289,
-        image: 'assets/chocolate-box.jpg'
-    },
-    {
-        title: 'Aromatherapy Diffuser',
-        description: 'LED color-changing essential oil diffuser',
-        rating: 4.7,
-        reviews: 198,
-        image: 'assets/diffuser.jpg'
-    },
-    {
-        title: 'Custom Keychain',
-        description: 'Personalized metal keychain with engraving',
-        rating: 4.5,
-        reviews: 211,
-        image: 'assets/keychain.jpg'
+// main.js - Updated to load products from JSON files
+
+// Function to load all products from the products folder
+async function loadProducts() {
+    try {
+        // Load the products index file
+        const response = await fetch('products/index.json');
+        const productFiles = await response.json();
+        
+        // Load each product file
+        const products = await Promise.all(
+            productFiles.map(async (filename) => {
+                const productResponse = await fetch(`products/${filename}`);
+                return await productResponse.json();
+            })
+        );
+        
+        return products;
+    } catch (error) {
+        console.error('Error loading products:', error);
+        return [];
     }
-];
+}
 
 // Function to create star rating display
 function createStars(rating) {
@@ -106,47 +42,155 @@ function createStars(rating) {
     return stars;
 }
 
-// Function to render products
-function renderProducts() {
+// Function to render products with smooth transitions
+function renderProducts(products, filterCategory = 'all') {
     const grid = document.getElementById('productsGrid');
+    const productCount = document.querySelector('.product-count');
+    const sectionTitle = document.querySelector('.section-header h2');
     
-    products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
+    // Filter products by category
+    let filteredProducts = products;
+    if (filterCategory !== 'all') {
+        filteredProducts = products.filter(p => 
+            p.category.toLowerCase() === filterCategory.toLowerCase()
+        );
+    }
+    
+    // Add fade-out class
+    grid.classList.add('fade-out');
+    
+    // Wait for fade-out animation, then update content
+    setTimeout(() => {
+        // Update product count and title
+        productCount.textContent = `${filteredProducts.length} products`;
+        sectionTitle.textContent = filterCategory === 'all' ? 'All Sarees' : filterCategory;
         
-        card.innerHTML = `
-            <div class="product-image">
-                ${product.image 
-                    ? `<img src="${product.image}" alt="${product.title}">`
-                    : '<div class="placeholder-icon">🖼️</div>'
-                }
-            </div>
-            <div class="product-info">
-                <div class="product-title">${product.title}</div>
-                <div class="product-description">${product.description}</div>
-                <div class="product-rating">
-                    <span class="stars">${createStars(product.rating)}</span>
-                    <span class="rating-count">(${product.reviews})</span>
+        // Clear existing products
+        grid.innerHTML = '';
+        
+        // Render new products
+        filteredProducts.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            // Handle both single image (old format) and multiple images (new format)
+            const images = product.images || (product.image ? [product.image] : []);
+            const mainImage = images.length > 0 ? images[0] : null;
+            
+            card.innerHTML = `
+                <div class="product-image-wrapper">
+                    <div class="product-image">
+                        ${mainImage 
+                            ? `<img src="${mainImage}" alt="${product.title}" class="main-image">`
+                            : '<div class="placeholder-icon">🖼️</div>'
+                        }
+                    </div>
+                    ${images.length > 1 ? `
+                        <div class="image-indicators">
+                            ${images.map((_, index) => `
+                                <span class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+                            `).join('')}
+                        </div>
+                    ` : ''}
                 </div>
-            </div>
-        `;
+                <div class="product-info">
+                    <div class="product-title">${product.title}</div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-price">₹${product.price}</div>
+                    <div class="product-rating">
+                        <span class="stars">${createStars(product.rating)}</span>
+                        <span class="rating-count">(${product.reviews})</span>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+            
+            // Add image switching functionality if multiple images exist
+            if (images.length > 1) {
+                setupImageSwitching(card, images);
+            }
+        });
         
-        grid.appendChild(card);
+        // Remove fade-out and trigger fade-in
+        grid.classList.remove('fade-out');
+        grid.classList.add('fade-in');
+        
+        // Scroll to products section smoothly
+        document.querySelector('.products-section').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+        });
+        
+    }, 300); // Match this with CSS transition duration
+}
+
+// Function to setup image switching on hover/click
+function setupImageSwitching(card, images) {
+    const imageElement = card.querySelector('.main-image');
+    const indicators = card.querySelectorAll('.indicator');
+    let currentIndex = 0;
+    let autoSwitchInterval;
+    
+    // Auto-switch images on hover
+    card.addEventListener('mouseenter', () => {
+        autoSwitchInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            imageElement.src = images[currentIndex];
+            updateIndicators(indicators, currentIndex);
+        }, 1500);
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        clearInterval(autoSwitchInterval);
+        currentIndex = 0;
+        imageElement.src = images[0];
+        updateIndicators(indicators, 0);
+    });
+    
+    // Click on indicators to switch images
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearInterval(autoSwitchInterval);
+            currentIndex = index;
+            imageElement.src = images[index];
+            updateIndicators(indicators, index);
+        });
     });
 }
 
-// Navigation button functionality
-function initNavigation() {
+// Function to update active indicator
+function updateIndicators(indicators, activeIndex) {
+    indicators.forEach((ind, idx) => {
+        ind.classList.toggle('active', idx === activeIndex);
+    });
+}
+
+// Navigation button functionality with filtering
+function initNavigation(products) {
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', function() {
+            // Update active state
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+            
+            // Get category from button text
+            const category = this.textContent.trim();
+            
+            // Filter and render products
+            if (category === 'All Sarees') {
+                renderProducts(products, 'all');
+            } else {
+                renderProducts(products, category);
+            }
         });
     });
 }
 
 // Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    renderProducts();
-    initNavigation();
+document.addEventListener('DOMContentLoaded', async function() {
+    const products = await loadProducts();
+    renderProducts(products, 'all');
+    initNavigation(products);
 });
