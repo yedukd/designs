@@ -5,14 +5,14 @@ const products = [
         description: 'Beautiful wooden frame with custom engraving',
         rating: 4.8,
         reviews: 127,
-        image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=300&h=250&fit=crop'
+        image: 'assets/photo-frame.jpg'
     },
     {
         title: 'Luxury Jewelry Box',
         description: 'Elegant velvet-lined jewelry organizer',
         rating: 4.9,
         reviews: 89,
-        image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300&h=250&fit=crop'
+        image: 'assets/jewelry-box.jpg'
     },
     {
         title: 'Scented Candle Set',
@@ -26,63 +26,63 @@ const products = [
         description: 'Sparkly birthday crown for special celebrations',
         rating: 4.5,
         reviews: 156,
-        image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&h=250&fit=crop'
+        image: 'assets/birthday-crown.jpg'
     },
     {
         title: 'Leather Journal',
         description: 'Handcrafted leather-bound notebook',
         rating: 4.9,
         reviews: 94,
-        image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=250&fit=crop'
+        image: 'assets/leather-journal.jpg'
     },
     {
         title: 'Tea Gift Set',
         description: 'Assorted premium tea collection',
         rating: 4.6,
         reviews: 178,
-        image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=250&fit=crop'
+        image: 'assets/tea-set.jpg'
     },
     {
         title: 'Personalized Mug',
         description: 'Custom ceramic mug with name',
         rating: 4.7,
         reviews: 245,
-        image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=300&h=250&fit=crop'
+        image: 'assets/personalized-mug.jpg'
     },
     {
         title: 'Succulent Plant Set',
         description: 'Set of 4 mini succulent plants',
         rating: 4.8,
         reviews: 167,
-        image: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=300&h=250&fit=crop'
+        image: 'assets/succulent-plants.jpg'
     },
     {
         title: 'Wine Accessory Kit',
         description: 'Complete wine opener and stopper set',
         rating: 4.6,
         reviews: 132,
-        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=300&h=250&fit=crop'
+        image: 'assets/wine-kit.jpg'
     },
     {
         title: 'Chocolate Gift Box',
         description: 'Assorted gourmet chocolates',
         rating: 4.9,
         reviews: 289,
-        image: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=300&h=250&fit=crop'
+        image: 'assets/chocolate-box.jpg'
     },
     {
         title: 'Aromatherapy Diffuser',
         description: 'LED color-changing essential oil diffuser',
         rating: 4.7,
         reviews: 198,
-        image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=300&h=250&fit=crop'
+        image: 'assets/diffuser.jpg'
     },
     {
         title: 'Custom Keychain',
         description: 'Personalized metal keychain with engraving',
         rating: 4.5,
         reviews: 211,
-        image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&h=250&fit=crop'
+        image: 'assets/keychain.jpg'
     }
 ];
 
