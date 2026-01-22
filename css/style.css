@@ -169,6 +169,14 @@ nav {
     width: 100%;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes float {
@@ -272,10 +280,50 @@ nav {
     font-size: 0.85rem;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
-    .top-bar, nav, .hero, .products-section {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+    .top-bar {
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .logo svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .search-bar {
+        order: 3;
+        width: 100%;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 1.5rem 1rem;
+    }
+
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .hero {
+        padding: 2rem 1.5rem;
     }
 
     .hero-content {
@@ -287,11 +335,66 @@ nav {
         font-size: 2rem;
     }
 
-    .products-grid {
-        grid-template-columns: 1fr;
+    .hero-text p {
+        font-size: 1rem;
     }
 
-    .search-bar {
-        margin: 0 1rem;
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .products-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet Design */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .top-bar {
+        padding: 1rem 2rem;
+    }
+
+    nav {
+        padding: 0 2rem 1rem;
+    }
+
+    .hero {
+        padding: 3rem 2rem;
+    }
+
+    .hero-content {
+        gap: 3rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .products-section {
+        padding: 3rem 2rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
 }
