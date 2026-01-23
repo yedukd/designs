@@ -1,4 +1,40 @@
-* {
+.btn {
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+    background: #000;
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn-buy {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-buy:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,7 +46,7 @@ body {
 }
 
 header {
-    background: rgb(255, 255, 255);
+    background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
@@ -50,7 +86,7 @@ header {
 .search-bar input {
     width: 100%;
     padding: 0.6rem 1rem 0.6rem 2.5rem;
-    border: 1px solid #bbd1b7;
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 0.95rem;
     background: #f8f8f8;
@@ -66,9 +102,116 @@ header {
     color: #666;
 }
 
-.cart-icon {
+.about-icon {
     cursor: pointer;
     padding: 0.5rem;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.about-icon:hover {
+    transform: scale(1.1);
+}
+
+/* About icon dropdown - positioned properly */
+.about-icon .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    min-width: 280px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.dropdown-menu p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.dropdown-item {
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+}
+
+.dropdown-item strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+.dropdown-item a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.dropdown-item a:hover {
+    text-decoration: underline;
+}
+
+/* Guide Dropdown - positioned near button */
+.guide-dropdown-wrapper {
+    display: none !important;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+/* Remove old popup styles */
+.popup-overlay {
+    display: none !important;
 }
 
 nav {
@@ -154,10 +297,38 @@ nav {
     background: white;
     color: #333;
     border: 1px solid #ddd;
+    position: relative;
 }
 
 .btn-secondary:hover {
     background: #f8f8f8;
+}
+
+/* Guide dropdown attached to button */
+.btn-secondary .guide-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 320px;
+    max-width: 380px;
+    z-index: 100;
+}
+
+.guide-dropdown {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.guide-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .hero-image {
@@ -337,27 +508,36 @@ nav {
     font-size: 1.3rem;
     font-weight: 700;
     color: #000;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .product-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: none;
 }
 
-.stars {
-    color: #ffa500;
-    font-size: 0.9rem;
-}
-
-.rating-count {
-    color: #999;
-    font-size: 0.85rem;
-}
-
-/* Responsive Design */
+/* Responsive adjustments for dropdowns */
 @media (max-width: 768px) {
+    .dropdown-menu {
+        right: -10px;
+        min-width: 260px;
+    }
+    
+    .guide-dropdown {
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        min-width: 280px;
+        max-width: 90vw;
+    }
+    
+    .guide-dropdown.active {
+        transform: translateX(-50%) translateY(0);
+    }
+    
+    .guide-dropdown::before {
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
     .top-bar {
         flex-wrap: wrap;
         gap: 1rem;

@@ -97,10 +97,7 @@ function renderProducts(products, filterCategory = 'all') {
                     <div class="product-title">${product.title}</div>
                     <div class="product-description">${product.description}</div>
                     <div class="product-price">₹${product.price}</div>
-                    <div class="product-rating">
-                        <span class="stars">${createStars(product.rating)}</span>
-                        <span class="rating-count">(${product.reviews})</span>
-                    </div>
+                    <button class="btn-buy">Buy Now</button>
                 </div>
             `;
             
@@ -187,4 +184,52 @@ document.addEventListener('DOMContentLoaded', async function() {
     const products = await loadProducts();
     renderProducts(products, 'all');
     initNavigation(products);
+    initDropdowns();
+    initButtons();
 });
+
+// Initialize dropdown functionality
+function initDropdowns() {
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutDropdown = document.getElementById('aboutDropdown');
+    
+    const guideBtn = document.getElementById('guideBtn');
+    const guideDropdown = document.getElementById('guideDropdown');
+    
+    // About dropdown - toggle on click
+    aboutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        aboutDropdown.classList.toggle('active');
+        guideDropdown.classList.remove('active');
+    });
+    
+    // Guide dropdown - toggle on click
+    guideBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        guideDropdown.classList.toggle('active');
+        aboutDropdown.classList.remove('active');
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!aboutBtn.contains(e.target)) {
+            aboutDropdown.classList.remove('active');
+        }
+        if (!guideBtn.contains(e.target)) {
+            guideDropdown.classList.remove('active');
+        }
+    });
+}
+
+// Initialize button functionality
+function initButtons() {
+    const shopNowBtn = document.getElementById('shopNowBtn');
+    const productsSection = document.getElementById('productsSection');
+    
+    shopNowBtn.addEventListener('click', () => {
+        productsSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+}
