@@ -97,7 +97,7 @@ function renderProducts(products, filterCategory = 'all') {
                     <div class="product-title">${product.title}</div>
                     <div class="product-description">${product.description}</div>
                     <div class="product-price">₹${product.price}</div>
-                    <button class="btn-buy">Buy Now</button>
+                    <button class="btn-buy" onclick="openWhatsAppForProduct('${product.title.replace(/'/g, "\\'")}')">Buy Now</button>
                 </div>
             `;
             
@@ -186,7 +186,71 @@ document.addEventListener('DOMContentLoaded', async function() {
     initNavigation(products);
     initDropdowns();
     initButtons();
+    initWhatsApp();
 });
+
+// Initialize WhatsApp functionality
+function initWhatsApp() {
+    const whatsappFloat = document.getElementById('whatsappFloat');
+    const whatsappModal = document.getElementById('whatsappModal');
+    const closeModal = document.getElementById('closeWhatsappModal');
+    const whatsappForm = document.getElementById('whatsappForm');
+    
+    let currentProduct = null;
+    
+    // Open modal when clicking floating button
+    whatsappFloat.addEventListener('click', () => {
+        currentProduct = null;
+        whatsappModal.classList.add('active');
+    });
+    
+    // Close modal
+    closeModal.addEventListener('click', () => {
+        whatsappModal.classList.remove('active');
+        whatsappForm.reset();
+    });
+    
+    // Close on outside click
+    whatsappModal.addEventListener('click', (e) => {
+        if (e.target === whatsappModal) {
+            whatsappModal.classList.remove('active');
+            whatsappForm.reset();
+        }
+    });
+    
+    // Handle form submission
+    whatsappForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('customerName').value;
+        const phone = document.getElementById('customerPhone').value;
+        const query = document.getElementById('customerQuery').value;
+        
+        // Build WhatsApp message
+        let message = `Hi! I'm ${name}%0A`;
+        message += `Phone: ${phone}%0A%0A`;
+        message += `${query}`;
+        
+        if (currentProduct) {
+            message += `%0A%0AProduct: ${currentProduct}`;
+        }
+        
+        // Open WhatsApp with pre-filled message
+        const whatsappNumber = '919876543210'; // Update with your number
+        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        
+        // Close modal and reset form
+        whatsappModal.classList.remove('active');
+        whatsappForm.reset();
+    });
+    
+    // Store reference for buy button clicks
+    window.openWhatsAppForProduct = function(productTitle) {
+        currentProduct = productTitle;
+        document.getElementById('customerQuery').value = `I'm interested in buying "${productTitle}". Please provide more details.`;
+        whatsappModal.classList.add('active');
+    };
+}
 
 // Initialize dropdown functionality
 function initDropdowns() {

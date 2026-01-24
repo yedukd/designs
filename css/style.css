@@ -515,8 +515,191 @@ nav {
     display: none;
 }
 
+.rating-count {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.8);
+    }
+}
+
+/* WhatsApp Modal */
+.whatsapp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.whatsapp-modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.whatsapp-modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #000;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header svg {
+    margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+}
+
+.modal-header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #25D366;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-submit-whatsapp {
+    width: 100%;
+    padding: 1rem;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-submit-whatsapp:hover {
+    background: #128C7E;
+}
+
 /* Responsive adjustments for dropdowns */
 @media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    .whatsapp-modal-content {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+    
     .dropdown-menu {
         right: -10px;
         min-width: 260px;
