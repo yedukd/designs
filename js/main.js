@@ -236,7 +236,7 @@ function initWhatsApp() {
         }
         
         // Open WhatsApp with pre-filled message
-        const whatsappNumber = '919876543210'; // Update with your number
+        const whatsappNumber = '919497475082'; // Your WhatsApp number
         window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         
         // Close modal and reset form
